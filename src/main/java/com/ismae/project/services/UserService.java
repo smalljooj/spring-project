@@ -5,7 +5,6 @@ import com.ismae.project.repositories.UserRepository;
 import java.util.Optional;
 
 import com.ismae.project.models.User;
-import com.ismae.project.repositories.TaskRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +16,6 @@ public class UserService
 {
 	@Autowired
 	private UserRepository userRepository;
-	@Autowired
-	private TaskRepository taskRepository;
-
 
 	public User findById(Long id)
 	{
@@ -32,7 +28,6 @@ public class UserService
 	{
 		obj.setId(null);
 		obj = this.userRepository.save(obj);
-		this.taskRepository.saveAll(obj.getTasks());
 		return obj;
 	}
 
