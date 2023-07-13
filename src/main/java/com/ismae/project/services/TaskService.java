@@ -1,6 +1,7 @@
 package com.ismae.project.services;
 
 import java.util.Optional;
+import java.util.List;
 
 import com.ismae.project.repositories.TaskRepository;
 import com.ismae.project.models.*;
@@ -22,6 +23,12 @@ public class TaskService
 	{
 		Optional<Task> task = this.taskRepository.findById(id);
 		return task.orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+	}
+
+	public List<Task> findAllByUserId(Long userId)
+	{
+		List<Task> tasks = this.taskRepository.findByUser_Id(userId);
+		return tasks;
 	}
 
 	@Transactional
