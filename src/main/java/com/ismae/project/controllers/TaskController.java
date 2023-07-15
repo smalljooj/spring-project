@@ -29,6 +29,7 @@ public class TaskController
 {
 	@Autowired
 	private TaskService taskService;
+	@Autowired
 	private UserService userService;
 
 	@GetMapping("/{id}")
