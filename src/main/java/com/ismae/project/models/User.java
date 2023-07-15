@@ -2,9 +2,7 @@ package com.ismae.project.models;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -18,9 +16,19 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = User.TABLE_NAME)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
 public class User
 {
 	public interface CreateUser{}
@@ -47,80 +55,8 @@ public class User
 	private String password;
 
 	@OneToMany(mappedBy = "user")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Task> tasks = new ArrayList<Task>();
-	
-	public User(){}
-	
-	public User(Long id_, String username_, String password_)
-	{
-		this.id = id_;
-		this.username = username_;
-		this.password = password_;
-	}
-
-	public Long getId()
-	{
-		return this.id;
-	}
-
-	public String getUsername()
-	{
-		return this.username;
-	}
-
-	public String getPassword()
-	{
-		return this.password;
-	}
-
-	@JsonIgnore
-	public List<Task> getTasks()
-	{
-		return this.tasks;
-	}
-
-	public void setId(Long id_)
-	{
-		this.id = id_;
-	}
-
-	public void setUsername(String username_)
-	{
-		this.username = username_;
-	}
-
-	public void setPassword(String password_)
-	{
-		this.password = password_;
-	}
-
-	public void setTask(List<Task> tasks_)
-	{
-		this.tasks = tasks_;
-	}
-
-	@Override 
-	public boolean equals(Object o)
-	{
-		if(o == this)
-			return true;
-		if(!(o instanceof User))
-			return false;
-		User user = (User) o;
-		return Objects.equals(id, user.id) && 
-				Objects.equals(username, user.username) && 
-				Objects.equals(password, user.password);
-	}
-
-	@Override 
-	public int hashCode()
-	{
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((this.id == null)? 0 : this.id.hashCode());
-		return result;
-	}
-	
 
 }
 
